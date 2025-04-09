@@ -1,0 +1,160 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { SendHorizonal, User } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { toast } from "sonner";
+
+type Message = {
+  id: string;
+  content: string;
+  sender: "user" | "ai";
+  timestamp: Date;
+};
+
+const AIChat = () => {
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: "welcome",
+      content: "Hi there! I'm your AI wellness companion. How are you feeling today?",
+      sender: "ai",
+      timestamp: new Date(),
+    },
+  ]);
+  const [inputMessage, setInputMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSendMessage = () => {
+    if (!inputMessage.trim()) return;
+
+    const newUserMessage: Message = {
+      id: Date.now().toString(),
+      content: inputMessage,
+      sender: "user",
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, newUserMessage]);
+    setInputMessage("");
+    setIsLoading(true);
+
+    setTimeout(() => {
+      const aiResponses = [
+        "I understand how you're feeling. Would you like to explore some strategies that might help?",
+        "Thank you for sharing that with me. It takes courage to express your feelings.",
+        "I'm here to support you. Would you like to talk more about what's on your mind?",
+        "That's completely valid. Many people experience similar feelings.",
+        "I'm listening. Please feel free to share more about your situation if you're comfortable.",
+      ];
+
+      const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+
+      const aiMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: randomResponse,
+        sender: "ai",
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, aiMessage]);
+      setIsLoading(false);
+    }, 1500);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  return (
+    <div className="flex flex-col h-[calc(100vh-200px)] max-h-[800px] w-[full]">
+      <Card className="flex-1 overflow-hidden flex flex-col w-full">
+        <div className="flex-1 overflow-y-auto p-6 space-y-4 w-full">
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className={`flex ${
+                message.sender === "user" ? "justify-end" : "justify-start"
+              }`}
+            >
+              <div
+                className={`flex gap-3 max-w-[90%] ${
+                  message.sender === "user" ? "flex-row-reverse" : ""
+                }`}
+              >
+                <Avatar
+                  className={message.sender === "user" ? "bg-wellness-100" : "bg-wellness-100"}
+                >
+                  <AvatarFallback>
+                    {message.sender === "user" ? (
+                      <User size={16} />
+                    ) : (
+                      <img src="/bot.png" alt="Bot" className="w-5 h-5 rounded-full" />
+                    )}
+                  </AvatarFallback>
+                </Avatar>
+                <div
+                  className={`rounded-2xl px-4 py-2 text-sm ${
+                    message.sender === "user"
+                      ? "bg-wellness-500 text-white"
+                      : "bg-wellness-100 text-foreground"
+                  }`}
+                >
+                  {message.content}
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="flex gap-3">
+                <Avatar className="bg-wellness-500">
+                  <AvatarFallback>
+                    <img src="/bot.png" alt="Bot" className="w-5 h-5 rounded-full" />
+                  </AvatarFallback>
+                </Avatar>
+                <div className="rounded-2xl px-4 py-2 bg-wellness-100">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 rounded-full bg-wellness-400 animate-bounce"></div>
+                    <div className="w-2 h-2 rounded-full bg-wellness-400 animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+                    <div className="w-2 h-2 rounded-full bg-wellness-400 animate-bounce" style={{ animationDelay: "0.4s" }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="border-t p-6 w-full">
+          <div className="flex items-end gap-4">
+            <Textarea
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Type your message..."
+              className="min-h-[60px] resize-none w-full"
+              maxLength={500}
+            />
+            <Button
+              size="icon"
+              disabled={!inputMessage.trim() || isLoading}
+              onClick={handleSendMessage}
+              className="bg-wellness-500 hover:bg-wellness-600 h-[60px] w-[60px]"
+            >
+              <SendHorizonal className="h-5 w-5" />
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground mt-2 text-right">
+            For emotional support, not professional advice. Call 988 for crisis help.
+          </p>
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+export default AIChat;
