@@ -5,10 +5,12 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { SendHorizonal, User } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
+import generateCalmingContent from "@/pages/api/genai";
 
 type Message = {
   id: string;
   content: string;
+  displayedContent?: string;
   sender: "user" | "ai";
   timestamp: Date;
 };
@@ -18,6 +20,7 @@ const AIChat = () => {
     {
       id: "welcome",
       content: "Hi there! I'm your AI wellness companion. How are you feeling today?",
+      displayedContent: "Hi there! I'm your AI wellness companion. How are you feeling today?",
       sender: "ai",
       timestamp: new Date(),
     },
@@ -25,12 +28,26 @@ const AIChat = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const animateMessage = (
+    fullText: string,
+    callback: (partial: string) => void,
+    speed = 20
+  ) => {
+    let index = 0;
+    const interval = setInterval(() => {
+      callback(fullText.slice(0, index + 1));
+      index++;
+      if (index >= fullText.length) clearInterval(interval);
+    }, speed);
+  };
+
   const handleSendMessage = () => {
     if (!inputMessage.trim()) return;
 
     const newUserMessage: Message = {
       id: Date.now().toString(),
       content: inputMessage,
+      displayedContent: inputMessage,
       sender: "user",
       timestamp: new Date(),
     };
@@ -39,26 +56,29 @@ const AIChat = () => {
     setInputMessage("");
     setIsLoading(true);
 
-    setTimeout(() => {
-      const aiResponses = [
-        "I understand how you're feeling. Would you like to explore some strategies that might help?",
-        "Thank you for sharing that with me. It takes courage to express your feelings.",
-        "I'm here to support you. Would you like to talk more about what's on your mind?",
-        "That's completely valid. Many people experience similar feelings.",
-        "I'm listening. Please feel free to share more about your situation if you're comfortable.",
-      ];
-
-      const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+    setTimeout(async () => {
+      const geminiResponse = await generateCalmingContent(inputMessage);
 
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: randomResponse,
+        content: geminiResponse,
+        displayedContent: "",
         sender: "ai",
         timestamp: new Date(),
       };
 
       setMessages((prev) => [...prev, aiMessage]);
+
+      // Hide loading as soon as animation begins
       setIsLoading(false);
+
+      animateMessage(geminiResponse, (partial) => {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === aiMessage.id ? { ...msg, displayedContent: partial } : msg
+          )
+        );
+      });
     }, 1500);
   };
 
@@ -70,24 +90,20 @@ const AIChat = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-200px)] max-h-[800px] w-[full]">
-      <Card className="flex-1 overflow-hidden flex flex-col w-full">
+    <div className="flex flex-col h-[calc(100vh-200px)] max-h-[800px] w-full">
+      <Card className="flex-1 overflow-hidden flex flex-col w-full md:w-[900px] font-sans shadow-md transition-all hover:shadow-lg hover:border-wellness-200">
         <div className="flex-1 overflow-y-auto p-6 space-y-4 w-full">
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex ${
-                message.sender === "user" ? "justify-end" : "justify-start"
-              }`}
+              className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
                 className={`flex gap-3 max-w-[90%] ${
                   message.sender === "user" ? "flex-row-reverse" : ""
                 }`}
               >
-                <Avatar
-                  className={message.sender === "user" ? "bg-wellness-100" : "bg-wellness-100"}
-                >
+                <Avatar className="bg-wellness-100">
                   <AvatarFallback>
                     {message.sender === "user" ? (
                       <User size={16} />
@@ -99,11 +115,13 @@ const AIChat = () => {
                 <div
                   className={`rounded-2xl px-4 py-2 text-sm ${
                     message.sender === "user"
-                      ? "bg-wellness-500 text-white"
-                      : "bg-wellness-100 text-foreground"
+                      ? "bg-wellness-500 text-white font-normal"
+                      : "bg-wellness-100 text-foreground font-normal"
                   }`}
                 >
-                  {message.content}
+                  {message.sender === "ai" && message.displayedContent
+                    ? message.displayedContent
+                    : message.content}
                 </div>
               </div>
             </div>
@@ -112,17 +130,14 @@ const AIChat = () => {
           {isLoading && (
             <div className="flex justify-start">
               <div className="flex gap-3">
-                <Avatar className="bg-wellness-500">
+                <Avatar className="bg-wellness-50">
                   <AvatarFallback>
                     <img src="/bot.png" alt="Bot" className="w-5 h-5 rounded-full" />
                   </AvatarFallback>
                 </Avatar>
-                <div className="rounded-2xl px-4 py-2 bg-wellness-100">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 rounded-full bg-wellness-400 animate-bounce"></div>
-                    <div className="w-2 h-2 rounded-full bg-wellness-400 animate-bounce" style={{ animationDelay: "0.2s" }}></div>
-                    <div className="w-2 h-2 rounded-full bg-wellness-400 animate-bounce" style={{ animationDelay: "0.4s" }}></div>
-                  </div>
+
+                <div className="flex items-center justify-center">
+                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-wellness-400 border-t-transparent"></div>
                 </div>
               </div>
             </div>
@@ -136,7 +151,7 @@ const AIChat = () => {
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Type your message..."
-              className="min-h-[60px] resize-none w-full"
+              className="min-h-[60px] resize-none w-full font-normal"
               maxLength={500}
             />
             <Button
@@ -148,7 +163,7 @@ const AIChat = () => {
               <SendHorizonal className="h-5 w-5" />
             </Button>
           </div>
-          <p className="text-xs text-muted-foreground mt-2 text-right">
+          <p className="text-xs text-muted-foreground mt-4 text-right font-light">
             For emotional support, not professional advice. Call 988 for crisis help.
           </p>
         </div>

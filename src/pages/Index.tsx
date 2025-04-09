@@ -15,9 +15,10 @@ const Index = () => {
         {/* Hero Section */}
         <section className="py-16 md:py-24 bloom-container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gradient leading-tight animate-float">
-              Your AI Guide to Mental Wellness
-            </h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gradient leading-tight animate-float uppercase tracking-wider font-montserrat">
+  Your AI Guide to Mental Wellness
+</h1>
+
             <p className="text-lg md:text-xl text-foreground/80 mb-8 md:mb-10 max-w-2xl mx-auto animate-pulse-gentle animate-delay-200">
               Discover personalized support, insights and exercises powered by AI to help you cultivate mental wellbeing.
             </p>
@@ -27,7 +28,7 @@ const Index = () => {
                   Start Chatting
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-wellness-200 hover:bg-wellness-50">
+              <Button asChild variant="outline" size="lg" className="border-wellness-200 hover:bg-wellness-100 hover:text-black">
                 <Link to="/mood">
                   Track Your Mood
                 </Link>
@@ -37,63 +38,64 @@ const Index = () => {
         </section>
 
         {/* Features Section */}
-        <section className="py-12 md:py-20 bloom-container">
-          <h2 className="text-2xl md:text-3xl font-bold mb-12 text-center">How Bloom Supports Your Wellbeing</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="bloom-card">
-              <CardContent className="pt-6">
-                <div className="mb-4 w-12 h-12 rounded-full bg-wellness-100 flex items-center justify-center">
-                  <MessageSquare className="h-6 w-6 text-wellness-600" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">AI Companion</h3>
-                <p className="text-foreground/70">Chat with an AI trained to provide compassionate mental health support and guidance.</p>
-                <Button asChild variant="link" className="p-0 mt-4 text-wellness-500">
-                  <Link to="/chat">Start chatting</Link>
-                </Button>
-              </CardContent>
-            </Card>
-            
-            <Card className="bloom-card">
-              <CardContent className="pt-6">
-                <div className="mb-4 w-12 h-12 rounded-full bg-calm-100 flex items-center justify-center">
-                  <LineChart className="h-6 w-6 text-calm-600" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">Mood Tracking</h3>
-                <p className="text-foreground/70">Record and visualize your emotional patterns with AI-powered insights and recommendations.</p>
-                <Button asChild variant="link" className="p-0 mt-4 text-calm-500">
-                  <Link to="/mood">Track now</Link>
-                </Button>
-              </CardContent>
-            </Card>
-            
-            <Card className="bloom-card">
-              <CardContent className="pt-6">
-                <div className="mb-4 w-12 h-12 rounded-full bg-wellness-100 flex items-center justify-center">
-                  <BookOpen className="h-6 w-6 text-wellness-600" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">AI-Guided Journaling</h3>
-                <p className="text-foreground/70">Express yourself with thoughtful prompts and receive meaningful reflections on your entries.</p>
-                <Button asChild variant="link" className="p-0 mt-4 text-wellness-500">
-                  <Link to="/journal">Start writing</Link>
-                </Button>
-              </CardContent>
-            </Card>
-            
-            <Card className="bloom-card">
-              <CardContent className="pt-6">
-                <div className="mb-4 w-12 h-12 rounded-full bg-mint-100 flex items-center justify-center">
-                  <Sparkles className="h-6 w-6 text-mint-600" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">Guided Meditation</h3>
-                <p className="text-foreground/70">Experience personalized meditation sessions generated for your specific emotional needs.</p>
-                <Button asChild variant="link" className="p-0 mt-4 text-mint-500">
-                  <Link to="/meditate">Meditate now</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+<section className="py-12 md:py-20 bloom-container">
+  <h2 className="text-2xl md:text-3xl font-bold mb-12 text-center">How Bloom Supports Your Wellbeing</h2>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <Card className="bloom-card transform transition-transform duration-300 hover:scale-105">
+      <CardContent className="pt-6">
+        <div className="mb-4 w-12 h-12 rounded-full bg-wellness-100 flex items-center justify-center">
+          <MessageSquare className="h-6 w-6 text-wellness-600" />
+        </div>
+        <h3 className="font-bold text-lg mb-2">AI Companion</h3>
+        <p className="text-foreground/70">Chat with an AI trained to provide compassionate mental health support and guidance.</p>
+        <Button asChild variant="link" className="p-0 mt-4 text-wellness-500">
+          <Link to="/chat">Start chatting</Link>
+        </Button>
+      </CardContent>
+    </Card>
+
+    <Card className="bloom-card transform transition-transform duration-300 hover:scale-105">
+      <CardContent className="pt-6">
+        <div className="mb-4 w-12 h-12 rounded-full bg-calm-100 flex items-center justify-center">
+          <LineChart className="h-6 w-6 text-calm-600" />
+        </div>
+        <h3 className="font-bold text-lg mb-2">Mood Tracking</h3>
+        <p className="text-foreground/70">Record and visualize your emotional patterns with AI-powered insights and recommendations.</p>
+        <Button asChild variant="link" className="p-0 mt-4 text-calm-500">
+          <Link to="/mood">Track now</Link>
+        </Button>
+      </CardContent>
+    </Card>
+
+    <Card className="bloom-card transform transition-transform duration-300 hover:scale-105">
+      <CardContent className="pt-6">
+        <div className="mb-4 w-12 h-12 rounded-full bg-wellness-100 flex items-center justify-center">
+          <BookOpen className="h-6 w-6 text-wellness-600" />
+        </div>
+        <h3 className="font-bold text-lg mb-2">AI-Guided Journaling</h3>
+        <p className="text-foreground/70">Express yourself with thoughtful prompts and receive meaningful reflections on your entries.</p>
+        <Button asChild variant="link" className="p-0 mt-4 text-wellness-500">
+          <Link to="/journal">Start writing</Link>
+        </Button>
+      </CardContent>
+    </Card>
+
+    <Card className="bloom-card transform transition-transform duration-300 hover:scale-105">
+      <CardContent className="pt-6">
+        <div className="mb-4 w-12 h-12 rounded-full bg-mint-100 flex items-center justify-center">
+          <Sparkles className="h-6 w-6 text-mint-600" />
+        </div>
+        <h3 className="font-bold text-lg mb-2">Guided Meditation</h3>
+        <p className="text-foreground/70">Experience personalized meditation sessions generated for your specific emotional needs.</p>
+        <Button asChild variant="link" className="p-0 mt-4 text-mint-500">
+          <Link to="/meditate">Meditate now</Link>
+        </Button>
+      </CardContent>
+    </Card>
+  </div>
+</section>
+
         
         {/* How It Works Section */}
         <section className="py-12 md:py-20 bloom-container bg-wellness-50 rounded-3xl my-12">
