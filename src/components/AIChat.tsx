@@ -108,7 +108,7 @@ const AIChat = () => {
                     {message.sender === "user" ? (
                       <User size={16} />
                     ) : (
-                      <img src="/bot.png" alt="Bot" className="w-5 h-5 rounded-full" />
+                      <img src="./icons/bot.png"  alt="Bot" className="w-5 h-5 rounded-full" />
                     )}
                   </AvatarFallback>
                 </Avatar>
@@ -132,7 +132,7 @@ const AIChat = () => {
               <div className="flex gap-3">
                 <Avatar className="bg-wellness-50">
                   <AvatarFallback>
-                    <img src="/bot.png" alt="Bot" className="w-5 h-5 rounded-full" />
+                    <img src="./icons/bot.png" alt="Bot" className="w-5 h-5 rounded-full" />
                   </AvatarFallback>
                 </Avatar>
 

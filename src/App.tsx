@@ -10,6 +10,7 @@ import Mood from "./pages/Mood";
 import Journal from "./pages/Journal";
 import Meditate from "./pages/Meditate";
 import NotFound from "./pages/NotFound";
+import Express from "./pages/Express";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/express" element={<Express />} />
           <Route path="/mood" element={<Mood />} />
           <Route path="/journal" element={<Journal />} />
           <Route path="/meditate" element={<Meditate />} />

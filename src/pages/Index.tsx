@@ -15,9 +15,9 @@ const Index = () => {
         {/* Hero Section */}
         <section className="py-16 md:py-24 bloom-container">
           <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gradient leading-tight animate-float uppercase tracking-wider font-montserrat">
-  Your AI Guide to Mental Wellness
-</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl mb-6 font-bold  text-gradient leading-tight uppercase tracking-wider font-montserrat">
+            Your AI Guide to Mental Wellness
+          </h1>
 
             <p className="text-lg md:text-xl text-foreground/80 mb-8 md:mb-10 max-w-2xl mx-auto animate-pulse-gentle animate-delay-200">
               Discover personalized support, insights and exercises powered by AI to help you cultivate mental wellbeing.

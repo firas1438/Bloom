@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Menu, X, Home, MessageSquare, LineChart, BookOpen, Sparkles } from "lucide-react";
+import { Menu, X, Home, MessageSquare, LineChart, BookOpen, Sparkles, EyeClosed, Facebook, ScanEye, ScanEyeIcon } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,7 +24,7 @@ const Header = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-8">
           <Link to="/" className="flex items-center gap-1.5 text-sm font-medium text-foreground/80 hover:text-wellness-600 transition-colors">
             <Home size={16} />
             <span>Home</span>
@@ -33,9 +33,13 @@ const Header = () => {
             <MessageSquare size={16} />
             <span>Chat</span>
           </Link>
+          <Link to="/express" className="flex items-center gap-1.5 text-sm font-medium text-foreground/80 hover:text-wellness-600 transition-colors">
+            <ScanEye size={16} />
+            <span>Express</span>
+          </Link>
           <Link to="/mood" className="flex items-center gap-1.5 text-sm font-medium text-foreground/80 hover:text-wellness-600 transition-colors">
             <LineChart size={16} />
-            <span>Track Mood</span>
+            <span>Mood</span>
           </Link>
           <Link to="/journal" className="flex items-center gap-1.5 text-sm font-medium text-foreground/80 hover:text-wellness-600 transition-colors">
             <BookOpen size={16} />
@@ -62,7 +66,7 @@ const Header = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden fixed inset-0 top-[57px] bg-background z-40">
-          <nav className="flex flex-col gap-2 p-6">
+          <nav className="flex flex-col gap-1 p-4 bg-white rounded-md border-2 ">
             <Link 
               to="/" 
               className="flex items-center gap-2 p-3 rounded-md hover:bg-wellness-50 transition-colors"
@@ -85,7 +89,7 @@ const Header = () => {
               onClick={toggleMenu}
             >
               <LineChart size={18} className="text-wellness-500" />
-              <span className="font-medium">Track Mood</span>
+              <span className="font-medium">Mood</span>
             </Link>
             <Link 
               to="/journal" 
@@ -102,6 +106,14 @@ const Header = () => {
             >
               <Sparkles size={18} className="text-wellness-500" />
               <span className="font-medium">Meditate</span>
+            </Link>
+            <Link 
+              to="/eyes" 
+              className="flex items-center gap-2 p-3 rounded-md hover:bg-wellness-50 transition-colors"
+              onClick={toggleMenu}
+            >
+              <ScanEye size={18} className="text-wellness-500" />
+              <span className="font-medium">Express</span>
             </Link>
           </nav>
         </div>

@@ -33,7 +33,7 @@ const Chat = () => {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="text-3xl font-bold mb-4 text-gradient">AI Wellness Companion</h1>
+            <h1 className="text-3xl font-bold mb-4 text-gradient mt-3 text-gradient leading-tight uppercase tracking-wider font-montserrat">AI Wellness Companion</h1>
             <p className="text-foreground/80 max-w-2xl mx-auto">
               A judgment-free space where you can express your thoughts and feelings. 
               Our AI is here to listen, support, and provide guidance.
