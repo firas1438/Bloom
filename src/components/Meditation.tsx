@@ -211,6 +211,7 @@ const Meditation = () => {
       </div>
 
       <div className="w-full md:w-2/3">
+      
         <Card className="bloom-card overflow-hidden">
           <div className="aspect-video bg-gradient-to-br from-wellness-200 to-wellness-50 relative overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center">
@@ -431,6 +432,8 @@ const Meditation = () => {
             </CardContent>
           </Card>
         </div>
+
+
       </div>
     </div>
   );

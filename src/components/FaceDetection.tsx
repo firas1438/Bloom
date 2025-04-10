@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import * as faceapi from 'face-api.js';
 import { toast } from 'sonner';
@@ -8,7 +7,6 @@ import { Loader2 } from 'lucide-react';
 import EmotionsDisplay from './EmotionsDisplay';
 import { generateVoice } from "@/lib/generateVoice";
 import generateImage from "@/lib/generateContent";
-
 
 interface Detection {
   expressions: {
@@ -37,32 +35,31 @@ const FaceDetection: React.FC = () => {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
-
-  // Charger les modèles face-api.js
+  // Load face-api.js models
   useEffect(() => {
     const loadModels = async () => {
       try {
         const MODEL_URL = './models';
         
-        // Vérifier si les modèles sont déjà chargés
+        // Check if models are already loaded
         if (!faceapi.nets.tinyFaceDetector.isLoaded) {
-          toast.info("Chargement des modèles de détection faciale...");
+          toast.info("Loading facial detection models...");
           
-          // Utiliser Promise.all pour charger tous les modèles en parallèle
+          // Use Promise.all to load all models in parallel
           await Promise.all([
             faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
             faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
             faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL)
           ]);
           
-          toast.success("Modèles chargés avec succès");
+          toast.success("Models loaded successfully");
           setIsModelLoaded(true);
         } else {
           setIsModelLoaded(true);
         }
       } catch (error) {
-        console.error('Erreur lors du chargement des modèles:', error);
-        toast.error("Erreur lors du chargement des modèles");
+        console.error('Error loading models:', error);
+        toast.error("Error loading models");
       }
     };
 
@@ -78,10 +75,10 @@ const FaceDetection: React.FC = () => {
     };
   }, []);
 
-  // Démarrer la webcam
+  // Start the webcam
   const startWebcam = async () => {
     if (!isModelLoaded) {
-      toast.error("Les modèles de détection ne sont pas encore chargés");
+      toast.error("Detection models are not yet loaded");
       return;
     }
 
@@ -99,30 +96,30 @@ const FaceDetection: React.FC = () => {
         videoRef.current.srcObject = stream;
         videoRef.current.onloadedmetadata = () => {
           setIsCameraReady(true);
-          toast.success("Caméra activée");
+          toast.success("Camera activated");
         };
       }
     } catch (error) {
-      console.error('Erreur lors de l\'accès à la webcam:', error);
-      toast.error("Impossible d'accéder à la caméra");
+      console.error('Error accessing webcam:', error);
+      toast.error("Unable to access the camera");
     }
   };
 
-  // Nouvel effet pour gérer le cleanup
+  // New effect for cleanup
   useEffect(() => {
     return () => {
-      // Arrêter le flux vidéo
+      // Stop video stream
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(track => track.stop());
-        console.log('Flux vidéo arrêté');
+        console.log('Video stream stopped');
       }
       
-      // Libérer la mémoire
+      // Release memory
       if (videoRef.current) {
         videoRef.current.srcObject = null;
       }
       
-      // Arrêter l'audio en cours
+      // Stop current audio
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
@@ -130,7 +127,7 @@ const FaceDetection: React.FC = () => {
     };
   }, []);
 
-  // Détecter le visage en temps réel
+  // Detect face in real-time
   useEffect(() => {
     if (!isModelLoaded || !isCameraReady || !videoRef.current || !canvasRef.current) {
       return;
@@ -139,7 +136,7 @@ const FaceDetection: React.FC = () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
 
-    // Ajuster la taille du canvas pour correspondre à la vidéo
+    // Adjust canvas size to match video
     const adjustCanvas = () => {
       if (video && canvas) {
         const { videoWidth, videoHeight } = video;
@@ -148,29 +145,29 @@ const FaceDetection: React.FC = () => {
       }
     };
 
-    // Créer le ResizeObserver pour surveiller la taille de la vidéo
+    // Create ResizeObserver to monitor video size
     const resizeObserver = new ResizeObserver(() => {
       adjustCanvas();
-  });
+    });
 
-    // Commencer l'observation
+    // Start observing
     resizeObserver.observe(video);
 
-    // Appeler une première fois pour ajuster immédiatement
+    // Call once to adjust immediately
     adjustCanvas();
 
     if (showLandmarksOnly) {
-      return; // Arrêter la détection en temps réel lors de l'affichage des landmarks
+      return; // Stop real-time detection when showing landmarks
     }
 
     let animationFrameId: number;
 
-    // Fonction de détection
+    // Detection function
     const detectFace = async () => {
       if (video.paused || video.ended || !canvas) {
         return;
       }
-      // Continuer la boucle de détection
+      // Continue detection loop
       animationFrameId = requestAnimationFrame(detectFace);
     };
 
@@ -187,21 +184,21 @@ const FaceDetection: React.FC = () => {
 
   useEffect(() => {
     if (audioUrl && audioRef.current) {
-      // Démarrer la lecture automatiquement
+      // Start playback automatically
       audioRef.current.play()
         .then(() => setIsPlaying(true))
         .catch(error => {
-          console.error("Erreur de lecture automatique:", error);
-          // Afficher un bouton de lecture manuelle en cas d'échec
-          toast.info("Cliquez sur le bouton pour écouter l'analyse");
+          console.error("Auto-play error:", error);
+          // Show manual play button on failure
+          toast.info("Click the button to listen to the analysis");
         });
     }
   }, [audioUrl]);
 
-  // Prendre une photo et analyser les expressions
+  // Capture photo and analyze expressions
   const captureAndAnalyze = async () => {
     if (!videoRef.current || !canvasRef.current) {
-      toast.error("La caméra n'est pas prête");
+      toast.error("The camera is not ready");
       return;
     }
 
@@ -215,7 +212,7 @@ const FaceDetection: React.FC = () => {
       if (context) {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Détecter le visage sur l'image actuelle
+        // Detect face on current image
         const detections = await faceapi
           .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
           .withFaceLandmarks()
@@ -227,22 +224,22 @@ const FaceDetection: React.FC = () => {
             height: canvas.height
           });
 
-          // Définir l'affichage uniquement des landmarks
+          // Set to show only landmarks
           setShowLandmarksOnly(true);
           setShowVideo(false);
 
           if (video.srcObject) {
             const stream = video.srcObject as MediaStream;
-            // Stopper chaque piste du flux
+            // Stop each track of the stream
             stream.getTracks().forEach(track => track.stop());
-            // Optionnellement, vider la source
+            // Optionally, clear the source
             video.srcObject = null;
           }
-          // Dessiner seulement les landmarks du visage
+          // Draw only face landmarks
           context.clearRect(0, 0, canvas.width, canvas.height);
           faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
 
-          // Enregistrer les expressions détectées
+          // Record detected expressions
           const firstFace = resizedDetections[0];
           if (firstFace) {
             setDetection({
@@ -250,29 +247,29 @@ const FaceDetection: React.FC = () => {
               landmarks: firstFace.landmarks
             });
             
-            toast.success("Analyse des expressions terminée");
-            // Extraire l'émotion dominante
+            toast.success("Expression analysis completed");
+            // Extract dominant emotion
             const dominantEmotion = Object.keys(firstFace.expressions).reduce((a, b) => firstFace.expressions[a] > firstFace.expressions[b] ? a : b);
             const intensity = Math.round(firstFace.expressions[dominantEmotion] * 10);
-            // Générer le contenu apaisant
+            // Generate calming content
             const calmingContent = await generateImage(dominantEmotion, intensity.toString());
             const url = await generateVoice(calmingContent);
             setAudioUrl(url);
           }
         } else {
-          toast.error("Aucun visage détecté");
+          toast.error("No face detected");
           setShowLandmarksOnly(false);
         }
       }
     } catch (error) {
-      console.error('Erreur lors de la capture et de l\'analyse:', error);
-      toast.error("Erreur lors de l'analyse");
+      console.error('Error during capture and analysis:', error);
+      toast.error("Error during analysis");
     } finally {
       setIsProcessing(false);
     }
   };
 
-  // Réinitialiser l'état
+  // Reset state
   const resetDetection = async () => {
     if (streamRef.current) {
       streamRef.current.getTracks().forEach(track => track.stop());
@@ -288,7 +285,7 @@ const FaceDetection: React.FC = () => {
     <div className="flex flex-col items-center gap-6">
       <Card className="w-full p-4">
         <div className="camera-container">
-        {showVideo &&<video
+          {showVideo && <video
             ref={videoRef}
             className="video-element"
             autoPlay
@@ -304,7 +301,7 @@ const FaceDetection: React.FC = () => {
               {isModelLoaded ? "Activate the camera" : (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Loading models...
+                  Loading models...
                 </>
               )}
             </Button>

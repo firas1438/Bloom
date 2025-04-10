@@ -91,8 +91,27 @@ const AIChat = () => {
 
   return (
     <div className="flex flex-col h-[calc(100vh-200px)] max-h-[800px] w-full">
-      <Card className="flex-1 overflow-hidden flex flex-col w-full md:w-[900px] font-sans shadow-md transition-all hover:shadow-lg hover:border-wellness-200">
-        <div className="flex-1 overflow-y-auto p-6 space-y-4 w-full">
+      <Card className="relative flex-1 overflow-hidden flex flex-col w-full md:w-[900px] font-sans shadow-md transition-all hover:shadow-lg hover:border-wellness-200">
+        {/* Background with gradient and animations */}
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-wellness-200 to-wellness-50 overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 overflow-hidden">
+              {/* Main crystal ball glow */}
+              <div className="absolute w-72 h-72 rounded-full bg-wellness-400/30 filter blur-3xl animate-float-slow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                {/* Inner light effects */}
+                <div className="absolute w-48 h-48 rounded-full bg-wellness-300/40 blur-2xl animate-pulse-slow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                <div className="absolute w-32 h-32 rounded-full bg-wellness-200/30 blur-xl animate-pulse delay-200 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+              </div>
+              {/* Subtle orbiting particles */}
+              <div className="absolute w-4 h-4 rounded-full bg-wellness-300/50 blur-sm animate-orbit top-1/2 left-1/2" style={{ animationDuration: '8s' }} />
+              <div className="absolute w-3 h-3 rounded-full bg-wellness-200/50 blur-sm animate-orbit-delay top-1/2 left-1/2" style={{ animationDuration: '6s' }} />
+              <div className="absolute w-2 h-2 rounded-full bg-wellness-400/40 blur-sm animate-orbit top-1/2 left-1/2" style={{ animationDuration: '10s', animationDelay: '1s' }} />
+            </div>
+          </div>
+        </div>
+  
+        {/* Message area */}
+        <div className="relative z-10 flex-1 overflow-y-auto p-6 space-y-4 w-full">
           {messages.map((message) => (
             <div
               key={message.id}
@@ -108,7 +127,7 @@ const AIChat = () => {
                     {message.sender === "user" ? (
                       <User size={16} />
                     ) : (
-                      <img src="./icons/bot.png"  alt="Bot" className="w-5 h-5 rounded-full" />
+                      <img src="./icons/bot.png" alt="Bot" className="w-5 h-5 rounded-full" />
                     )}
                   </AvatarFallback>
                 </Avatar>
@@ -116,7 +135,7 @@ const AIChat = () => {
                   className={`rounded-2xl px-4 py-2 text-sm ${
                     message.sender === "user"
                       ? "bg-wellness-500 text-white font-normal"
-                      : "bg-wellness-100 text-foreground font-normal"
+                      : "bg-wellness-50 text-foreground font-normal"
                   }`}
                 >
                   {message.sender === "ai" && message.displayedContent
@@ -126,7 +145,7 @@ const AIChat = () => {
               </div>
             </div>
           ))}
-
+  
           {isLoading && (
             <div className="flex justify-start">
               <div className="flex gap-3">
@@ -135,7 +154,6 @@ const AIChat = () => {
                     <img src="./icons/bot.png" alt="Bot" className="w-5 h-5 rounded-full" />
                   </AvatarFallback>
                 </Avatar>
-
                 <div className="flex items-center justify-center">
                   <div className="h-5 w-5 animate-spin rounded-full border-2 border-wellness-400 border-t-transparent"></div>
                 </div>
@@ -143,15 +161,16 @@ const AIChat = () => {
             </div>
           )}
         </div>
-
-        <div className="border-t p-6 w-full">
+  
+        {/* Input area */}
+        <div className="relative z-10 border-t p-6 w-full">
           <div className="flex items-end gap-4">
             <Textarea
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Type your message..."
-              className="min-h-[60px] resize-none w-full font-normal"
+              className="min-h-[60px] resize-none w-full font-normal bg-wellness-50"
               maxLength={500}
             />
             <Button
@@ -170,6 +189,7 @@ const AIChat = () => {
       </Card>
     </div>
   );
+  
 };
 
 export default AIChat;

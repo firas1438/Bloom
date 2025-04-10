@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HelpCircle, Heart, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion"; // Import framer-motion
+import { Link } from "react-router-dom";
 
 const Chat = () => {
   const { toast } = useToast();
@@ -103,7 +104,9 @@ const Chat = () => {
                           <p className="text-sm text-muted-foreground mb-3">
                             Connect with licensed mental health professionals
                           </p>
-                          <Button variant="outline" size="sm">Search Providers</Button>
+                          <Link to="https://www.med.tn/doctor/psychotherapist/tunis" target="_blank" rel="noopener noreferrer">
+                            <Button variant="outline" size="sm">Search Providers</Button>
+                          </Link>
                         </div>
                         
                         <div className="p-4 rounded-lg border border-wellness-100">
@@ -111,7 +114,9 @@ const Chat = () => {
                           <p className="text-sm text-muted-foreground mb-3">
                             Find community with others facing similar challenges
                           </p>
-                          <Button variant="outline" size="sm">Find Groups</Button>
+                          <Link to="https://www.mentalhealthforum.net/forum/" target="_blank" rel="noopener noreferrer">
+                            <Button variant="outline" size="sm">Find Groups</Button>
+                          </Link>
                         </div>
                         
                         <div className="p-4 rounded-lg border border-wellness-100">
@@ -119,7 +124,9 @@ const Chat = () => {
                           <p className="text-sm text-muted-foreground mb-3">
                             Access resources for managing your mental health
                           </p>
-                          <Button variant="outline" size="sm">View Resources</Button>
+                          <Link to="https://www.cdc.gov/mental-health/living-with/index.html" target="_blank" rel="noopener noreferrer">
+                            <Button variant="outline" size="sm">View Resources</Button>
+                          </Link>
                         </div>
                         
                         <div className="p-4 rounded-lg border border-wellness-100">
@@ -127,7 +134,9 @@ const Chat = () => {
                           <p className="text-sm text-muted-foreground mb-3">
                             Learn about mental health conditions and treatments
                           </p>
-                          <Button variant="outline" size="sm">Read Articles</Button>
+                          <Link to="https://www.verywellmind.com/the-importance-of-mental-health-for-wellbeing-5207938" target="_blank" rel="noopener noreferrer">
+                            <Button variant="outline" size="sm">Read article</Button>
+                          </Link>
                         </div>
                       </div>
                     </div>

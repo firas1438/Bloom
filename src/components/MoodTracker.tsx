@@ -247,10 +247,7 @@ const MoodTracker = () => {
             <CardTitle>Your Mood History</CardTitle>
             <CardDescription>Track your emotional patterns over time</CardDescription>
           </div>
-          <Button variant="outline" size="sm" className="gap-1">
-            <Calendar size={16} />
-            <span>View Calendar</span>
-          </Button>
+
         </CardHeader>
         <CardContent className="flex flex-col max-h-[500px]">
           <div className="flex-1 overflow-y-auto space-y-4 pr-2">
