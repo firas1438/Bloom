@@ -12,7 +12,7 @@ export default async function generateCalmingContent(contents: string): Promise<
 
     // 2. Initialisation de l'API
     const genAI = new GoogleGenerativeAI(API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }); // Version optimisée
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); // Version optimisée
 
     // 3. VOTRE PROMPT ORIGINAL (inchangé)
     const systemContext = `You are Bloom, a specialized therapeutic assistant designed exclusively to help people improve their mental health, reduce stigma around psychological issues, and encourage positive practices.

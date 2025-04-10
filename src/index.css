@@ -118,3 +118,50 @@
 .animate-delay-600 {
   animation-delay: 600ms;
 }
+
+/* Animations pour les barres de progression */
+@keyframes fill {
+  from { width: 0; }
+  to { width: var(--target-width); }
+}
+
+.emotion-bar {
+  position: relative;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #e2e8f0;
+}
+
+.emotion-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  animation: fill 1s ease-out forwards;
+}
+
+.camera-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.video-element {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.canvas-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.emoji-indicator {
+  font-size: 2rem;
+  margin-right: 0.5rem;
+}
