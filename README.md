@@ -1,27 +1,20 @@
-AI-Powered Mental Wellness Application
-🧠 Welcome to the AI-Powered Mental Wellness AppThis project aims to provide an intelligent and supportive space to help users monitor, understand, and improve their mental well-being through smart technology.
-🚀 Key Features
+# AI-Powered Mental Wellness Application
 
-Automatic mood detection from text or voice
-Personalized suggestions (exercises, meditation, journaling)
-User-friendly and accessible interface
-AI-powered smart engine for personalized guidance
+🧠 **Welcome to the AI-Powered Mental Wellness App**  
+This project aims to provide an intelligent and supportive space to help users monitor, understand, and improve their mental well-being through smart technology.
 
-🌐 Live Demo
-Try it here 👉 Click to open the live app
-🛠️ Getting Started
+## 🚀 Key Features
+- Automatic mood detection from text or voice
+- Personalized suggestions (exercises, meditation, journaling)
+- User-friendly and accessible interface
+- AI-powered smart engine for personalized guidance
 
-Clone the project
-git clone https://github.com/firas1438/Bloom.git
-cd Bloom
+## 🌐 Live Demo
+Try it here 👉 [Click to open the live app](https://diga-diga-8e9k.vercel.app)
 
+## 🛠️ Getting Started
 
-Install dependencies
-npm install
-
-
-Start the application
-npm run dev
-
-
-
+1. **Clone the project**
+   ```bash
+   git clone https://github.com/firas1438/Bloom.git
+   cd Bloom
