@@ -18,3 +18,13 @@ Try it here 👉 [Click to open the live app](https://diga-diga-8e9k.vercel.app)
    ```bash
    git clone https://github.com/firas1438/Bloom.git
    cd Bloom
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the application**
+   ```bash
+   npm run dev
+   ```
