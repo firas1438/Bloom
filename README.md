@@ -10,7 +10,7 @@ This project aims to provide an intelligent and supportive space to help users m
 - Built with modern web technologies for optimal performance
 
 ## Live Demo
-Try it here 👉 [Click to open the live app](https://diga-diga-8e9k.vercel.app)
+Access the live application [here](https://diga-diga-8e9k.vercel.app).
 
 ## How It Works
 1. Chat directly with our AI assistant about mental health topics for personalized advice and tips
