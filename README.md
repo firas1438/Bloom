@@ -1,7 +1,7 @@
 ## Bloom
 This project aims to provide an intelligent and supportive space to help users monitor, understand, and improve their mental well-being through smart technology.
 
-![App Preview](https://i.imgur.com/ZDhPhQa.png)
+![App Preview](https://i.imgur.com/2d4ACJ8.png)
 
 ## Features
 - Automatic mood detection.
