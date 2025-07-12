@@ -30,7 +30,7 @@ Try it here 👉 [Click to open the live app](https://diga-diga-8e9k.vercel.app)
 - FaceAPI.js
 - ElevenLabs
 
-## 🛠️ Getting Started
+## Getting Started
 1. **Clone the project**
    ```bash
    git clone https://github.com/firas1438/Bloom.git
