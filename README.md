@@ -36,12 +36,19 @@ Try it here 👉 [Click to open the live app](https://diga-diga-8e9k.vercel.app)
    git clone https://github.com/firas1438/Bloom.git
    cd Bloom
    ```
-2. **Install dependencies**
+   
+1. **Create a .env file in the root directory and add your environment variables.**
+   ```bash
+   VITE_GEMINI_API_KEY=your_api_key_here
+   VITE_ELEVEN_LAB_API_KEY=your_api_key_here
+   ```
+   
+3. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. **Start the application**
+4. **Start the application**
    ```bash
    npm run dev
    ```
